@@ -24,7 +24,7 @@ namespace AjustScreenBrightness
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
 
             // AjustScreenClass[] classes = { new AjustScreenByGdi32(), new AjustScreenByDxva2(this.Handle) };
-            AjustScreenClass[] classes = { new AjustScreenByGdi32(), new AjustScreenByIgfxDHLib() };
+            AjustScreenClass[] classes = { new AjustScreenByIgfxDHLib() };
 
             AjustDisplayControl ctrl = null;
             int maxWidth = 0;
