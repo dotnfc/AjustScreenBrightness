@@ -34,12 +34,14 @@ namespace AjustScreenBrightness
             uint num = _cls.get_SupportedConfig(ref cui_SUPPORTED_CONFIG);
             var id = cui_SUPPORTED_CONFIG.DeviceConfig[0].DispDev[0];
             uint[] array = new uint[3];
+
+            //////// {
             var a = _cls.get_GetDeviceList(id, array);
             _screenModel.ulDevices = array[0];
-            _screenModel.Device = new _CUI_COLOR_INFO[3];
-            _screenModel.Device[0].Brightness.color = _COLOR_TYPE.NumColors;
-            _screenModel.Device[0].Contrast.color = _COLOR_TYPE.NumColors;
-            _screenModel.Device[0].Gamma.color = _COLOR_TYPE.NumColors;
+            AllocateGammaLUT(ref _screenModel);
+            FillColorType(ref _screenModel);
+            //////// }
+            
             _screenModel.Command = _CUI_COLOR_COMMAND.GET_COLOR;
             _cls.get_color(_screenModel.ulDevices, ref _screenModel);
 
@@ -51,6 +53,30 @@ namespace AjustScreenBrightness
             _propRange.Gamma.Minimun = 0.4f;//(int)_screenModel.Device[0].Gamma.values.fMin;
         }
 
+        public void AllocateGammaLUT(ref _CUI_COLOR_DEVICES cuiColorDevices)
+        {
+            cuiColorDevices.cuiGammaLUT = (_GAMMA_BUFFER[])(object)new _GAMMA_BUFFER[3];
+            cuiColorDevices.customGammaLUT = (_CUI_GAMMA_BUFFER_RELATIVE[])(object)new _CUI_GAMMA_BUFFER_RELATIVE[3];
+            for (int i = 0; i < 3; i++)
+            {
+                cuiColorDevices.cuiGammaLUT[i] = default(_GAMMA_BUFFER);
+                cuiColorDevices.customGammaLUT[i] = default(_CUI_GAMMA_BUFFER_RELATIVE);
+            }
+        }
+
+        public void FillColorType(ref _CUI_COLOR_DEVICES colorInfo)
+        {
+            colorInfo.Device = (_CUI_COLOR_INFO[])(object)new _CUI_COLOR_INFO[3];
+            for (uint num = 0u; num < 3; num++)
+            {
+                _COLOR_TYPE colorType = _COLOR_TYPE.NumColors;
+                colorInfo.Device[num] = default(_CUI_COLOR_INFO);
+                colorInfo.Device[num].Brightness.color = colorType;
+                colorInfo.Device[num].Contrast.color = colorType;
+                colorInfo.Device[num].Gamma.color = colorType;
+            }
+        }
+        
         public override short GetBrightnessDefault()
         {
             _screenModel.Command = _CUI_COLOR_COMMAND.GET_COLOR;
