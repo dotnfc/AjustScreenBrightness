@@ -10,3 +10,5 @@ c# 多种方法调整屏幕亮度
 NVIDIA GeForce 940M + Intel HD Graphics 5500
 
 基于 igfxDHLib.dll 的接口。
+
+![main ui](./snap.png)
