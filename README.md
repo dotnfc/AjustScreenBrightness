@@ -11,4 +11,4 @@ NVIDIA GeForce 940M + Intel HD Graphics 5500
 
 基于 igfxDHLib.dll 的接口。
 
-![main ui](./snap.png)
+![main ui](/snap.png)
