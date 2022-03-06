@@ -7,6 +7,7 @@ c# 多种方法调整屏幕亮度
 <br />
 <hr />
 完善一下，以解决 Thinkpad T550 上集成显卡无法调亮度的问题：FN+F5/F6, 或者 Win10/Win11 系统控制面板。
+
 NVIDIA GeForce 940M + Intel HD Graphics 5500
 
 基于 igfxDHLib.dll 的接口。
